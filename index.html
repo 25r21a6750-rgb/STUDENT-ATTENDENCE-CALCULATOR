@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance Calculator</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <h3><i class="bi bi-mortarboard-fill"></i> AttendEase</h3>
+        <p class="small text-secondary">STUDENT PORTAL</p>
+
+        <button class="nav-link active" data-page="dashboard">
+            <i class="bi bi-grid"></i> Dashboard
+        </button>
+
+        <button class="nav-link" data-page="calculator">
+            <i class="bi bi-calculator"></i> Attendance Calculator
+        </button>
+
+        <button class="nav-link" data-page="subjects">
+            <i class="bi bi-journal-bookmark"></i> My Subjects
+        </button>
+
+        <button class="nav-link" data-page="records">
+            <i class="bi bi-calendar-check"></i> Attendance Records
+        </button>
+
+        <div class="sidebar-bottom">
+            <i class="bi bi-lightbulb"></i>
+            <h6>Stay Consistent!</h6>
+            <p>Attend classes regularly and achieve your goals.</p>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <button class="menu-btn" id="menuToggle">
+                <i class="bi bi-list"></i>
+            </button>
+            <span>Student Portal / <b id="pageName">Dashboard</b></span>
+            <div class="profile">
+                <i class="bi bi-person-circle"></i> Student
+            </div>
+        </header>
+
+        <!-- Dashboard Page -->
+        <section class="page active" id="dashboard">
+            <div class="welcome">
+                <div>
+                    <p class="eyebrow">YOUR ACADEMIC COMPANION</p>
+                    <h1>Student Attendance Dashboard</h1>
+                    <p class="text-secondary">Track your attendance and stay exam-ready.</p>
+                </div>
+                <button class="btn btn-primary" data-go="calculator">
+                    <i class="bi bi-plus-lg"></i> Calculate Attendance
+                </button>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-6 col-xl-3">
+                    <div class="stat-card blue">
+                        <i class="bi bi-calendar3"></i>
+                        <p>Total Classes</p>
+                        <h2 id="totalStat">0</h2>
+                    </div>
+                </div>
+
+                <div class="col-6 col-xl-3">
+                    <div class="stat-card green">
+                        <i class="bi bi-check-circle"></i>
+                        <p>Classes Attended</p>
+                        <h2 id="presentStat">0</h2>
+                    </div>
+                </div>
+
+                <div class="col-6 col-xl-3">
+                    <div class="stat-card orange">
+                        <i class="bi bi-x-circle"></i>
+                        <p>Classes Missed</p>
+                        <h2 id="absentStat">0</h2>
+                    </div>
+                </div>
+
+                <div class="col-6 col-xl-3">
+                    <div class="stat-card purple">
+                        <i class="bi bi-percent"></i>
+                        <p>Attendance</p>
+                        <h2 id="percentStat">0%</h2>
+                        <small id="statusFoot">Add your subjects</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-lg-7">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h4>Attendance by Subject</h4>
+                                <p>Your subject-wise progress</p>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm"
+                                    data-go="subjects">Manage Subjects</button>
+                        </div>
+                        <div id="subjectProgress">
+                            <p class="empty">No subjects added yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="panel">
+                        <h4>Attendance Overview</h4>
+                        <p class="text-secondary">Based on the 75% target</p>
+
+                        <div class="donut" id="donut">
+                            <div class="donut-center">
+                                <h3 id="donutPercent">0%</h3>
+                                <small>Present</small>
+                            </div>
+                        </div>
+
+                        <div id="healthMessage" class="notice">
+                            Add subjects to see your attendance status.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3 mt-1">
+                <div class="col-lg-7">
+                    <div class="panel">
+                        <h4>Recent Attendance Records</h4>
+                        <div class="table-responsive">
+                            <table class="table mt-3">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Subject</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentTable">
+                                    <tr><td colspan="3" class="text-center">
+                                        No records available.
+                                    </td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="panel tips">
+                        <h4><i class="bi bi-lightbulb"></i> Attendance Tips</h4>
+                        <ul>
+                            <li>Maintain at least 75% attendance if required by your college.</li>
+                            <li>Update your attendance regularly.</li>
+                            <li>Attend upcoming classes to improve your percentage.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculator Page -->
+        <section class="page" id="calculator">
+            <h1>Attendance Calculator</h1>
+            <p class="text-secondary mb-4">Calculate your attendance percentage.</p>
+
+            <div class="panel">
+                <form id="calculatorForm">
+                    <div class="mb-3">
+                        <label class="form-label">Subject Name</label>
+                        <input type="text" id="calcSubject" class="form-control"
+                               placeholder="Enter subject name" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Total Classes</label>
+                            <input type="number" id="calcTotal" class="form-control"
+                                   min="1" step="1" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Classes Attended</label>
+                            <input type="number" id="calcPresent" class="form-control"
+                                   min="0" step="1" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-calculator"></i> Calculate
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary">
+                        Clear
+                    </button>
+                </form>
+
+                <div id="calcResult" class="result-box" hidden>
+                    <p>Your Attendance Percentage</p>
+                    <h2 id="resultPercent">0%</h2>
+                    <div class="progress mb-3">
+                        <div class="progress-bar" id="resultBar"></div>
+                    </div>
+                    <h6 id="resultStatus"></h6>
+                    <p id="resultSummary"></p>
+                    <p id="recommendation"></p>
+                    <button class="btn btn-success" id="saveCalculation">
+                        Save to My Subjects
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subjects Page -->
+        <section class="page" id="subjects">
+            <h1>My Subjects</h1>
+            <p class="text-secondary mb-4">Manage your subject attendance.</p>
+
+            <div class="panel mb-4">
+                <h4 id="subjectFormTitle">Add a Subject</h4>
+                <form id="subjectForm">
+                    <input type="hidden" id="editSubjectId">
+
+                    <div class="mb-3">
+                        <label class="form-label">Subject Name</label>
+                        <input type="text" id="subjectName" class="form-control"
+                               placeholder="e.g. Java Programming" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Total Classes</label>
+                            <input type="number" id="subjectTotal" class="form-control"
+                                   min="1" step="1" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Classes Attended</label>
+                            <input type="number" id="subjectPresent" class="form-control"
+                                   min="0" step="1" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="saveSubjectBtn">
+                        Add Subject
+                    </button>
+                    <button type="button" class="btn btn-secondary"
+                            id="cancelEdit" hidden>Cancel</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h4>Subject List</h4>
+                <div id="subjectCards" class="mt-3">
+                    <p class="empty">No subjects added yet.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Records Page -->
+        <section class="page" id="records">
+            <h1>Attendance Records</h1>
+            <p class="text-secondary mb-4">Record your daily attendance.</p>
+
+            <div class="panel mb-4">
+                <h4>Add Attendance Record</h4>
+                <form id="recordForm" class="row g-3 align-items-end">
+                    <div class="col-md-4">
+                        <label class="form-label">Subject</label>
+                        <select id="recordSubject" class="form-select" required>
+                            <option value="">Choose subject</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Date</label>
+                        <input type="date" id="recordDate" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Status</label>
+                        <select id="recordStatus" class="form-select">
+                            <option>Present</option>
+                            <option>Absent</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary w-100">Add</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="panel">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4>All Records</h4>
+                    <button class="btn btn-outline-primary btn-sm" id="exportCsv">
+                        Export CSV
+                    </button>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table mt-3">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Subject</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recordsTable">
+                            <tr><td colspan="4" class="text-center">
+                                No records available.
+                            </td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <footer>© 2026 AttendEase | Student Attendance Calculator</footer>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
